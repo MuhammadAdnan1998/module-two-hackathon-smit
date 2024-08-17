@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging Website - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Include your CSS file for styling -->
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header/Navbar -->
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+        <div class="text-xl font-bold">MyBlog</div>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="../index.html" class="text-gray-700 hover:text-blue-500">Home Page</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-500">Create a new Post</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-500">Sign Up</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-500">Login</a></li>
+            </ul>
+        </nav>
+        <div>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <!-- Dashboard Container -->
+    <main class="p-4">
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold mb-4">Blog Uploading Form</h1>
+            <form id="blogForm">
+                <div class="mb-4">
+                    <label for="blogTitle" class="block text-gray-700">Blog Title</label>
+                    <input type="text" id="blogTitle" name="blogTitle" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter the blog title" required>
+                </div>
+                <div class="mb-4">
+                    <label for="blogContent" class="block text-gray-700">Blog Content</label>
+                    <textarea id="blogContent" name="blogContent" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter blog content" rows="4" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="authorName" class="block text-gray-700">Author Name</label>
+                    <input type="text" id="authorName" name="authorName" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter the author name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="date" class="block text-gray-700">Uploading Date</label>
+                    <input type="date" id="date" name="date" class="w-full p-2 border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="imageUpload" class="block text-gray-700">Profile Image</label>
+                    <input type="file" id="imageUpload" name="imageUpload" class="w-full p-2 border border-gray-300 rounded" accept="image/*">
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+            </form>
+
+            <h2 class="text-xl font-bold mt-8 mb-4">Existing Posts</h2>
+            <div id="postsList"></div>
+        </div>
+    </main>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>
