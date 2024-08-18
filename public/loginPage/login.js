@@ -1,6 +1,4 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 // Firebase configuration
@@ -17,8 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getDatabase();
 const auth = getAuth(app);
 
 // Login function
@@ -28,13 +24,8 @@ window.loginUser = function () {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      const reference = ref(db, `user/${user.uid}`);
-
-      onValue(reference, (snapshot) => {
-        // Redirect to dashboard
-        window.location.href = "../dashboard/dashboard.html";
-      });
+      // Redirect to dashboard
+      window.location.href = "../dashboard/dashboard.html";
     })
     .catch((error) => {
       alert(error.message);

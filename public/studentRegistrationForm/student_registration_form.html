@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration</title>
+    <title>Blog Uploading Form</title>
     <link rel="stylesheet" href="student_registration_form.css">
 </head>
+
 <body>
     <div class="registration-container">
         <h1>Blog Uploading Form</h1>
@@ -22,16 +24,13 @@
             <input type="text" id="authorName" name="authorName" placeholder="Enter the author name" required>
         </div>
         <div class="input-group">
-            <label for="date">Uploading Date</label>
-            <input type="date" id="date" name="date" required>
-        </div>
-        <div class="input-group">
             <label for="imageUpload">Profile Image</label>
             <input type="file" id="imageUpload" name="imageUpload" accept="image/*">
         </div>
-        <button type="button" onclick="uploadPost()">Submit</button>
+        <button type="button" onclick="uploadBlog()">Submit</button>
     </div>
 
     <script type="module" src="student_registration_form.js"></script>
 </body>
+
 </html>
