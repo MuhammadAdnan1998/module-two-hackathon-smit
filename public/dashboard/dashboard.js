@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, remove, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const storage = getStorage(app);
 let editMode = false;
 let editPostId = null;
 
@@ -35,22 +37,69 @@ function uploadPost(event) {
     title: formData.get('blogTitle'),
     content: formData.get('blogContent'),
     author: formData.get('authorName'),
-    imageURL: formData.get('imageUpload').name || null, // Assuming you handle image uploads elsewhere
+    imageURL: null, // This will be updated after image upload if applicable
     uploadTime: getCurrentDateTime()
   };
 
-  if (editMode) {
-    // Update existing post
-    update(ref(db, 'posts/' + editPostId), newPost).then(() => {
+  uploadImage(formData.get('imageUpload'))
+    .then((url) => {
+      if (url) {
+        newPost.imageURL = url;
+      }
+      if (editMode) {
+        // Update existing post
+        return update(ref(db, 'posts/' + editPostId), newPost);
+      } else {
+        // Create new post
+        const newPostRef = push(ref(db, 'posts/'));
+        return set(newPostRef, newPost);
+      }
+    })
+    .then(() => {
       resetForm();
+      renderPosts(); // Refresh the post list
+    })
+    .catch((err) => {
+      console.error('Error:', err);
     });
-  } else {
-    // Create new post
-    const newPostRef = push(ref(db, 'posts/'));
-    set(newPostRef, newPost);
-  }
+}
 
-  renderPosts(); // Refresh the post list
+// Function to upload image and get download URL
+function uploadImage(imageFile) {
+  return new Promise((resolve, reject) => {
+    if (!imageFile) {
+      resolve(null);
+      return;
+    }
+
+    const randomNum = Math.random().toString().slice(2);
+    const storagePath = `images/${randomNum}`;
+    const uploadRef = storageRef(storage, storagePath);
+    const uploadTask = uploadBytesResumable(uploadRef, imageFile);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        console.error('Upload failed:', error);
+        reject(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            resolve(downloadURL);
+          })
+          .catch((error) => {
+            console.error('Failed to get download URL:', error);
+            reject(error);
+          });
+      }
+    );
+  });
 }
 
 // Function to delete a post
@@ -70,8 +119,6 @@ function editPost(postId) {
     document.getElementById('blogTitle').value = post.title;
     document.getElementById('blogContent').value = post.content;
     document.getElementById('authorName').value = post.author;
-    // The image input field cannot be set programmatically due to browser security restrictions
-    // So it will remain empty, and the user can reselect the image if needed
   });
 }
 
@@ -84,15 +131,27 @@ function renderPosts() {
     snapshot.forEach((childSnapshot) => {
       const post = childSnapshot.val();
       const postDiv = document.createElement('div');
-      postDiv.classList.add('p-4', 'mb-4', 'bg-gray-200', 'rounded', 'shadow');
+      postDiv.classList.add('post');
+
+      const editBtn = document.createElement('button');
+      editBtn.classList.add('post-edit-btn');
+      editBtn.textContent = 'Edit';
+      editBtn.addEventListener('click', () => editPost(childSnapshot.key));
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.classList.add('post-delete-btn');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.addEventListener('click', () => deletePost(childSnapshot.key));
+
       postDiv.innerHTML = `
-        <h3 class="text-xl font-bold">${post.title}</h3>
-        <p>${post.content}</p>
-        <p class="text-gray-600">Author: ${post.author}</p>
-        <p class="text-gray-600">Uploaded at: ${new Date(post.uploadTime).toLocaleString()}</p>
-        <button class="bg-yellow-500 text-white px-4 py-2 rounded mt-2 mr-2" onclick="editPost('${childSnapshot.key}')">Edit</button>
-        <button class="bg-red-500 text-white px-4 py-2 rounded mt-2" onclick="deletePost('${childSnapshot.key}')">Delete</button>
+        <h3 class="post-title">${post.title}</h3>
+        <p class="post-content">${post.content}</p>
+        <p class="post-author">Author: ${post.author}</p>
+        <p class="post-time">Uploaded at: ${new Date(post.uploadTime).toLocaleString()}</p>
       `;
+
+      postDiv.appendChild(editBtn);
+      postDiv.appendChild(deleteBtn);
       postsList.appendChild(postDiv);
     });
   });

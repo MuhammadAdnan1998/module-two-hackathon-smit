@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogging Website - Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="dashboard.css">
 </head>
-<body class="bg-gray-100">
+
+<body>
 
     <!-- Header/Navbar -->
     <header class="header">
         <div class="logo">MyBlog</div>
-        <div>
+        <div class="nav-links">
+            <!-- Go to Home Page Button -->
+            <a href="/index.html" class="nav-link">Home</a>
+            <!-- Logout Button -->
             <button class="logout-btn" id="logoutBtn">Logout</button>
         </div>
     </header>
@@ -24,15 +28,18 @@
             <form id="blogForm">
                 <div class="form-group">
                     <label for="blogTitle" class="form-label">Blog Title</label>
-                    <input type="text" id="blogTitle" name="blogTitle" class="form-input" placeholder="Enter the blog title" required>
+                    <input type="text" id="blogTitle" name="blogTitle" class="form-input"
+                        placeholder="Enter the blog title" required>
                 </div>
                 <div class="form-group">
                     <label for="blogContent" class="form-label">Blog Content</label>
-                    <textarea id="blogContent" name="blogContent" class="form-input" placeholder="Enter blog content" rows="4" required></textarea>
+                    <textarea id="blogContent" name="blogContent" class="form-input" placeholder="Enter blog content"
+                        rows="4" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="authorName" class="form-label">Author Name</label>
-                    <input type="text" id="authorName" name="authorName" class="form-input" placeholder="Enter the author name" required>
+                    <input type="text" id="authorName" name="authorName" class="form-input"
+                        placeholder="Enter the author name" required>
                 </div>
                 <div class="form-group">
                     <label for="imageUpload" class="form-label">Profile Image</label>
@@ -46,6 +53,14 @@
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 My Blog. All Rights Reserved.</p>
+        </div>
+    </footer>
+
     <script type="module" src="dashboard.js"></script>
 </body>
+
 </html>

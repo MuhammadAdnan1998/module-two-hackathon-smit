@@ -1,62 +1,78 @@
+/* General Body Styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+/* Container Styling */
 .login-container {
-    width: 300px;
-    margin: 100px auto;
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
     padding: 20px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading Styling */
 h1 {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Input Group Styling */
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Increased margin for better spacing */
 }
 
 .input-group label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* Added extra padding for a more spacious feel */
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 16px; /* Ensure input text is readable */
+    box-sizing: border-box; /* Ensure padding is included in the total width */
 }
 
+/* Button Styling */
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* Match input padding for consistency */
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
+/* Signup Link Styling */
 .signup-link {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 15px; /* Increased margin for better separation from button */
 }
 
 .signup-link a {
     color: #007bff;
     text-decoration: none;
+    font-size: 16px; /* Ensure the link text size matches the rest of the page */
 }
 
 .signup-link a:hover {

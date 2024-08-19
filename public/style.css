@@ -1,0 +1,237 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f4f6; 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar Styling */
+nav {
+    background-color: white;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1d4ed8; 
+    text-decoration: none; 
+}
+
+nav .logo a:hover {
+    color: #1d4ed8; 
+    text-decoration: none;
+}
+
+nav a {
+    color: #1d4ed8; 
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+nav a:hover {
+    color: #1e3a8a; 
+    text-decoration: underline;
+}
+
+nav #mobile-menu-button {
+    display: none;
+}
+
+nav .menu {
+    display: flex;
+    gap: 16px;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+}
+
+.mobile-menu a {
+    padding: 12px 0;
+    color: #1d4ed8;
+    border-top: 1px solid #e5e7eb;
+}
+
+.mobile-menu a:first-child {
+    border-top: none;
+}
+
+/* Slider Styling */
+.slider {
+    margin-top: 24px;
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Blog List Styling */
+.blog-list {
+    background-color: white;
+    padding: 24px;
+    margin-top: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Blog Cards Container */
+#blogsList {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 16px; /* Space between cards */
+    justify-content: space-between; /* Distribute space evenly */
+}
+
+/* Blog Card Styling */
+.blog-card {
+    background-color: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 16px); /* Set width to 25% minus gap */
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    text-align: left; /* Align text to the left */
+}
+
+/* Adjust blog card width on smaller screens */
+@media (max-width: 1200px) {
+    .blog-card {
+        width: calc(33.333% - 16px); /* 3 cards per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    #blogsList {
+        flex-direction: column; /* Stack cards vertically on small screens */
+    }
+
+    .blog-card {
+        width: 100%; /* Full width on small screens */
+        max-width: none; /* Remove max-width on small screens */
+    }
+}
+
+/* Blog Card Content Styling */
+.blog-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.blog-card h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.blog-card .author,
+.blog-card .date {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.blog-card p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.blog-card a {
+    color: #1d4ed8;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.blog-card a:hover {
+    text-decoration: underline;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Basic styling for truncated blog content */
+.blog-card .content {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 60px;
+}
+
+/* Style for Read More link */
+.blog-card .read-more {
+    color: #1d4ed8;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.blog-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+footer {
+    color: #1d4ed8; 
+    padding: 8px; 
+    text-align: center;
+    border-top: 0.5px solid #e5e7eb;
+    position: relative;
+    margin-top: 32px;
+}
+
+/* Container in Footer */
+footer .container {
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px;
+}
+
+/* Responsive Design for Footer */
+@media (max-width: 768px) {
+    footer .container {
+        padding: 0 16px; 
+    }
+}
+
+/* Toggle Mobile Menu Script */
+.hidden {
+    display: none;
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+}
